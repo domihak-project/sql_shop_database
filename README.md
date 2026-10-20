@@ -17,41 +17,45 @@ The database and tables creation has been performed using MySQL via the file [sh
 
 ```mermaid
 erDiagram
-    subgraph SALES
-        CUSTOMERS ||--O{ ORDERS : place
+    CUSTOMERS ||--O{ ORDERS : place
 
-        CUSTOMERS {
-            int CustomerId PK
-            string FirstName
-            string LastName
-            int Age
-            string City
-        }
+    ORDERS {
+        int OrderId PK
+        date OrderDate
+        int CustomerId FK
+        int ProductId FK
+        int Quantity
+    }
 
-        ORDERS {
-            int OrderId PK
-            date OrderDate
-            int CustomerId FK
-            int ProductId FK
-            int Quantity
-        }
-    end
+    CUSTOMERS {
+        int CustomerId PK
+        string FirstName
+        string LastName
+        int Age
+        string City
+    }
 
-    subgraph PRODUCTION
-        PRODUCTS ||--||{ BRANDS : have
+        ORDERS ||--O{ PRODUCTS : contain
 
-        PRODUCTS {
-            int ProductId PK
-            string ProductName
-            int Price
-            int BrandId FK
-        }
+    PRODUCTS {
+        int ProductId PK
+        string ProductName
+        int Price
+        int BrandId FK
+    }
 
-        BRANDS {
-            int BrandId PK
-            string BrandName
-        }
-    end
 
-    ORDERS ||--O{ PRODUCTS : contain
+        PRODUCTS ||--|| BRANDS : have
+
+    BRANDS {
+        int BrandId PK
+        string BrandName
+    }
+
 ```
+
+
+## Sources
+[kaggle bike products dataset](https://www.kaggle.com/datasets/dillonmyrick/bike-store-sample-database)
+
+[lucjankonopka github repo with a similar project](https://github.com/lucjankonopka/sql_shop_database/tree/main)
