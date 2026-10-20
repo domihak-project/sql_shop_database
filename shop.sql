@@ -151,7 +151,8 @@ LEFT JOIN Brands B on B.BrandId = P.BrandId
 GROUP BY B.BrandName;
 
 -----------FURTHER ANALYSIS--------------
-SELECT CSUM(P.Price) AS DECIMAL (10,2)) AS Total
+-- Total overall spent
+SELECT CAST(SUM(P.Price) AS DECIMAL (10,2)) AS Total
 FROM Orders O
 INNER JOIN Products P on O.ProductId = P.ProductId
 INNER JOIN Customers C on O.CustomerId = C.CustomerId
